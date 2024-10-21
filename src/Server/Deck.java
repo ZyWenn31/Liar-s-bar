@@ -1,4 +1,7 @@
-package Client;
+package Server;
+
+import Client.Card;
+
 import java.util.ArrayList;
 import java.util.*;
 
@@ -15,6 +18,8 @@ public class Deck {
                 cards.add(new Card(suit, rank));
             }
         }
+        cards.add(new Card("Red", "Joker"));
+        cards.add(new Card("Grey", "Joker"));
     }
 
     public Card dealCard() {
@@ -33,4 +38,3 @@ public class Deck {
         return cards.size();
     }
 }
-

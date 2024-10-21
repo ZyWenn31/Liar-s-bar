@@ -5,29 +5,41 @@ import java.util.*;
 public class User {
     private String name;
     private ArrayList<Card> UserCards;
+    private Liar liar;
 
     public User(String name){
         UserCards = new ArrayList<>();
         this.name = name;
     }
 
-    public void seeCards(){
-
-        System.out.println("Your cards: ");
-        for (Card suit : UserCards){
-            System.out.print(suit.getSuit().toString());
-        }
-        System.out.println();
-        for (Card rank : UserCards){
-            System.out.print(rank.getRank().toString());
-        }
-        for (int i = 0; i < UserCards.size(); i++){
-            int r = i;
-            System.out.print(++r);
+    public void Died(Died died){
+        if (died == Died.DIED){
+            // Пользователь не может выполнять действий
         }
     }
 
+    public Liar askLiar(){
+        while (true){
+            System.out.println("Choose, previous player is liar?\n1 - Yes\n2 - No");
+            byte choose = new Scanner(System.in).nextByte();
+            if (choose == 1){
+                this.liar = Liar.LIAR;
+                return liar;
+            } else if (choose == 2) {
+                this.liar = Liar.NOT_LIAR;
+                return liar;
+            } else {
+                System.out.println("Choose is wrong!");
+            }
+        }
+    }
 
+    public void seeCards(){
+        int r = 0;
+        for (Card card : UserCards){
+            System.out.println((++r) + " " + card.getSuit() + " " + card.getRank());
+        }
+    }
 
     public ArrayList<Card> chooseCard(){
         Scanner in = new Scanner(System.in);
@@ -37,6 +49,9 @@ public class User {
         boolean r = true;
 
         while (r == true){
+            if (choosen.size() > 4){
+                break;
+            }
             System.out.println("Select the card number you want to send");
             choose = in.nextInt();
             choosen.add(choose);
@@ -66,8 +81,14 @@ public class User {
                 default: break;
             }
         }
-
         return choosenCards;
+    }
+
+    public ArrayList<Card> removeSelectedCards(ArrayList<Card> cards){
+        for (int i = 0 ; i < cards.size(); i++){
+            UserCards.remove(cards.get(i));
+        }
+        return cards;
     }
 
     public String getName() {
