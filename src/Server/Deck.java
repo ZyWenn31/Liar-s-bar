@@ -11,20 +11,22 @@ public class Deck {
     public Deck() {
         cards = new ArrayList<>();
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] ranks = {"Jack", "Queen", "King", "Ace"};
+        String[] ranks = {"Queen", "King", "Ace"};
 
         for (String suit : suits) {
             for (String rank : ranks) {
                 cards.add(new Card(suit, rank));
             }
         }
+
         cards.add(new Card("Red", "Joker"));
         cards.add(new Card("Grey", "Joker"));
+        cards.add(new Card("Red", "Joker"));
     }
 
     public Card dealCard() {
         if (!cards.isEmpty()) {
-            return cards.remove(0);
+            return cards.removeFirst();
         } else {
             return null; // если карты закончились
         }

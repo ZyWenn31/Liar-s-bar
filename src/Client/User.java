@@ -12,13 +12,21 @@ public class User {
         this.name = name;
     }
 
-    public void Died(Died died){
+    public int countCards(){
+        return UserCards.size();
+    }
+
+    public void died(Died died){
         if (died == Died.DIED){
             // Пользователь не может выполнять действий
         }
     }
 
-    public Liar askLiar(){
+    public void shots(byte countShots){
+        System.out.println("Your shots: " + countShots + " / 6");
+    }
+
+    public Liar askLiar() throws Exception {
         while (true){
             System.out.println("Choose, previous player is liar?\n1 - Yes\n2 - No");
             byte choose = new Scanner(System.in).nextByte();
@@ -29,7 +37,7 @@ public class User {
                 this.liar = Liar.NOT_LIAR;
                 return liar;
             } else {
-                System.out.println("Choose is wrong!");
+                throw new Exception("Wrong choose");
             }
         }
     }
@@ -41,14 +49,14 @@ public class User {
         }
     }
 
-    public ArrayList<Card> chooseCard(){
+    public ArrayList<Card> chooseCard() throws Exception{
         Scanner in = new Scanner(System.in);
         ArrayList<Card> choosenCards = new ArrayList<>();
         TreeSet<Integer> choosen = new TreeSet<>();
         int choose;
         boolean r = true;
 
-        while (r == true){
+        while (r){
             if (choosen.size() > 4){
                 break;
             }
@@ -73,6 +81,8 @@ public class User {
                             remove = in.nextByte();
                             if (remove == 1){
                                 r = false;
+                            }   else {
+                                throw new Exception("Wrong choose");
                             }
                         }
                         break;
